@@ -39,6 +39,7 @@
 !     the number of hours since January 1, 1900.
 
       implicit none
+
       character (len=18)   ::  string1
       character (len=80)   ::  linebuffer
       real(kind=8)         ::  HoursSince1900
@@ -52,26 +53,26 @@
       !TEST READ COMMAND LINE ARGUMENTS
       nargs = iargc()
       if (nargs.ne.1) then
-          write(6,*) 'error in input to yyyymmddhh_since_1900'
-          write(6,*) 'input should be a single real number.'
-          write(6,*) 'program stopped'
-          stop
-        else
-          call getarg(1,linebuffer)
-          read(linebuffer,*) HoursSince1900
-      end if
+        write(6,*) 'error in input to yyyymmddhh_since_1900'
+        write(6,*) 'input should be a single real number.'
+        write(6,*) 'program stopped'
+        stop
+      else
+        call getarg(1,linebuffer)
+        read(linebuffer,*) HoursSince1900
+      endif
 
       call HS_Get_YMDH(HoursSince1900,byear,useLeaps,iyear,imonth,iday,hour,idoy)
 
       ihour = int(hour)
       fraction = hour-real(ihour,kind=8)
-      IF(fraction.gt.1.00)THEN
+      if(fraction.gt.1.0_8)then
         ! if the nearest integer of ifraction is acutually the next
         ! hour, adjust ifraction and ihour accordingly
         ihour = ihour + int(fraction)
         fraction = fraction-int(fraction)
-      ENDIF
-      ifraction = nint(fraction*60.)            !turn hour fraction into minutes
+      endif
+      ifraction = nint(fraction*60.0_8)            !turn hour fraction into minutes
 
       write(string1,2) iyear, imonth, iday, ihour, ifraction
 2     format(i4,'.',i2.2,'.',i2.2,'.',2i2.2,'UTC')

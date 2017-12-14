@@ -67,7 +67,7 @@
       ! Note, this uses the proleptic Gregorian calendar which includes year 0
       ! and considers y=0 to be a leap year.
 
-      If ((mod(iyear,4).eq.0).and.(mod(iyear,100).ne.0).or.(mod(iyear,400).eq.0)) then
+      if ((mod(iyear,4).eq.0).and.(mod(iyear,100).ne.0).or.(mod(iyear,400).eq.0)) then
         HS_IsLeapYear = .true.
       else
         HS_IsLeapYear = .false.
@@ -107,15 +107,15 @@
 
       ! First check input values
       if (iyear.lt.byear) then
-        write(*,*)"HS ERROR:  year must be greater or equal to base year."
+        write(0,*)"HS ERROR:  year must be greater or equal to base year."
         stop 1
       endif
       if (imonth.lt.1.or.imonth.gt.12) then
-        write(*,*)"HS ERROR:  month must be between 1 and 12."
+        write(0,*)"HS ERROR:  month must be between 1 and 12."
         stop 1
       endif
       if (iday.lt.1) then
-        write(*,*)"HS ERROR:  day must be greater than 0."
+        write(0,*)"HS ERROR:  day must be greater than 0."
         stop 1
       endif
       if ((imonth.eq.1.or.&
@@ -125,31 +125,31 @@
            imonth.eq.8.or.&
            imonth.eq.10.or.&
            imonth.eq.12).and.iday.gt.31)then
-        write(*,*)"HS ERROR:  day must be <= 31 for this month."
+        write(0,*)"HS ERROR:  day must be <= 31 for this month."
         stop 1
       endif
       if ((imonth.eq.4.or.&
            imonth.eq.6.or.&
            imonth.eq.9.or.&
            imonth.eq.11).and.iday.gt.30)then
-        write(*,*)"HS ERROR:  day must be <= 30 for this month."
+        write(0,*)"HS ERROR:  day must be <= 30 for this month."
         stop 1
       endif
       if ((imonth.eq.2).and.iday.gt.29)then
-        write(*,*)"HS ERROR:  day must be <= 29 for this month."
+        write(0,*)"HS ERROR:  day must be <= 29 for this month."
         stop 1
       endif
 
-      IF(useLeaps)THEN
+      if(useLeaps)then
         ! First find out if given year is a leap year
         IsLeap = HS_IsLeapYear(iyear)
 
         ! Now find out how many leap days (actually hours) are between the given
         ! year and the base year
         ileaphours = 0
-        DO i = byear,iyear
+        do i = byear,iyear
           if (HS_IsLeapYear(i)) ileaphours = ileaphours + 24
-        ENDDO
+        enddo
       
         ! If this is a leap year, but still in Jan or Feb, removed the
         ! extra 24 hours credited above
@@ -213,12 +213,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       ! div-by-four ARE leapyears -> +1
       ! div-by-100  NOT leapyears -> -1
@@ -226,45 +226,45 @@
       !  So, every 400 years, the cycle repeats with 97 extra leap days 
       !  Otherwise, normal centuries have 24 leap days
       !  And four-year packages have 1 leap day
-      IF(useLeaps)THEN
+      if(useLeaps)then
         HoursIn_Century  = 24*(365 * 100 + 24)
         HoursIn_Year     = 24*(365)
         HoursIn_Leap     = 24
-      ELSE
+      else
         HoursIn_Century  = 24*(365 * 100)
         HoursIn_Year     = 24*(365)
         HoursIn_Leap     = 0
-      ENDIF
+      endif
 
       ! Get the number of hours between base year and year 0
       !  First leap hours
       ileaphours = 0
       byear_correction = 0
-      IF(useLeaps)THEN
-        IF(byear.ge.0)THEN
+      if(useLeaps)then
+        if(byear.ge.0)then
           ! clock starts at 0 so include 0 in the positive accounting
-          DO i = 0,byear
+          do i = 0,byear
             if (HS_IsLeapYear(i)) ileaphours = ileaphours + 24
-          ENDDO
+          enddo
           if (HS_IsLeapYear(byear))then
             ! If the base year is itself a leapyear, remove the extra 24 hours
             ! since we will always be using Jan 1 of the base year
             byear_correction = -24
-          ENDIF
-        ELSE
+          endif
+        else
           ! for negative years, count from year -1 to byear
-          DO i = byear,-1
+          do i = byear,-1
             if (HS_IsLeapYear(i)) ileaphours = ileaphours + 24
-          ENDDO
+          enddo
           if (HS_IsLeapYear(byear))then
             ! If the base year is itself a leapyear, remove the extra 24 hours
             ! since we will always be using Jan 1 of the base year
             byear_correction = -24
-          ENDIF
-        ENDIF
-      ELSE
+          endif
+        endif
+      else
         byear_correction = 0
-      ENDIF
+      endif
       ! Now total hours
       BaseYear_Y0_OffsetHours_int = abs(byear)*HoursIn_Year  + &
                                      ileaphours               + &
@@ -274,7 +274,7 @@
       InYear_Y0_OffsettHours = real(BaseYear_Y0_OffsetHours_int,kind=8) + &
                                      HoursSince
       rem_hours = InYear_Y0_OffsettHours
-      IF(InYear_Y0_OffsettHours.ge.0.0)THEN
+      if(InYear_Y0_OffsettHours.ge.0.0)then
         ! byear and HoursSince result in an iyear .ge. 0
           icent = 0
           HoursIn_This_Century = HoursIn_Century + HoursIn_Leap
@@ -310,38 +310,38 @@
           enddo
 
           iyear = iyear + 100*icent
-      ELSE
+      else
         ! iyear will be negative
         stop 1
-      ENDIF
+      endif
         ! Check if iyear is a leap year
 
-      IF(useLeaps)THEN
-        IF (HS_IsLeapYear(iyear))THEN
+      if(useLeaps)then
+        if (HS_IsLeapYear(iyear))then
            IsLeap = .true.
-        ELSE
+        else
           IsLeap = .false.
-        ENDIF
-      ELSE
+        endif
+      else
         IsLeap = .false.
-      ENDIF
+      endif
         ! Calculate the day-of-year
       idoy = int(rem_hours/24.0_8)+1
 
         ! Get the month we are in
-      DO imonth=1,12
-        IF(IsLeap)THEN
+      do imonth=1,12
+        if(IsLeap)then
           month_start_hours = real(leapmonthours(imonth-1),kind=8)
           month_end_hours   = real(leapmonthours(imonth),kind=8)
-        ELSE
+        else
           month_start_hours = real(monthours(imonth-1),kind=8)
           month_end_hours   = real(monthours(imonth),kind=8)
-        ENDIF
-        IF(rem_hours.ge.month_start_hours.and.rem_hours.lt.month_end_hours)THEN
+        endif
+        if(rem_hours.ge.month_start_hours.and.rem_hours.lt.month_end_hours)then
           rem_hours = rem_hours - month_start_hours
           exit
-        ENDIF
-      ENDDO
+        endif
+      enddo
         ! And the day-of month
       iday = int(rem_hours/24.0_8)+1
         ! Hours of day
@@ -376,12 +376,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       call HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
 
@@ -426,12 +426,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       string0 = ':'
 
@@ -475,12 +475,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       string0 = '.'
 
@@ -488,12 +488,12 @@
 
       ihours = int(hours)
       ifraction = nint(100.0_8*(hours-real(ihours,kind=8)))
-      IF(ifraction.eq.100)THEN
+      if(ifraction.eq.100)then
         ! if the nearest integer of ifraction is acutually the next
         ! hour, adjust ifraction and ihour accordingly
         ifraction = 0
         ihours = ihours + 1
-      ENDIF
+      endif
       
         ! build the string
       write(string1,'(i4,3i2.2,a,i2.2)') iyear, imonth, iday, ihours, string0, ifraction
@@ -530,12 +530,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       call HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
 
@@ -569,12 +569,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       call HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
 
@@ -608,12 +608,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       call HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
 
@@ -647,12 +647,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       call HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
 
@@ -686,12 +686,12 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonesense
-      IF(HoursSince.lt.0.or.HoursSince.gt.1.0e9)THEN
-        write(*,*)"HS ERROR: HoursSince variable is either negative or larger"
-        write(*,*)"          than ~100,000 years."
-        write(*,*)"          Double-check that it was passed as real*8"
+      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+        write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
+        write(0,*)"          than ~100,000 years."
+        write(0,*)"          Double-check that it was passed as real*8"
         stop 1
-      ENDIF
+      endif
 
       call HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
 

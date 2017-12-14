@@ -42,7 +42,7 @@
       implicit none
 
       integer              :: iyear,imonth
-      integer              :: iday, ileaphours
+      integer              :: iday
       integer              :: nargs
       character(len=80)    :: garbage1, garbage2, garbage3, garbage4
       real(kind=8)         :: hours

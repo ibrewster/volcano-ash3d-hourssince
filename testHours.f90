@@ -6,7 +6,6 @@
 
       integer            :: iyear,imonth
       integer            :: iday, idoy
-      integer            :: ileaphours
       real(kind=8)       :: hours
       integer            :: byear    = 1000
       logical            :: useLeaps = .true.
