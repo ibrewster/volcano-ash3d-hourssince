@@ -11,28 +11,28 @@ other source code.
 
 To compile as a library, simple type:
 
-  make
+  `make`
 
 Some subroutines in HoursSince.f90 have stand-alone wrapper programs, using 1900
-as the base year for the hours calculation.
-  HoursSince1900
-  yyyymmddhh_since_1900
+as the base year for the hours calculation.  
+  `HoursSince1900`  
+  `yyyymmddhh_since_1900`
 
 To compile these wrapper programs, type:
 
-  make tools
+  `make tools`
 
-To install the library, edit the INSTALLDIR variable of the makefile (the
-default is /opt/USGS) and type:
+To install the library, edit the `INSTALLDIR` variable of the makefile (the
+default is `/opt/USGS`) and type:
 
-  make install
+  `make install`
 
-You will need to have write permission in ${INSTALLDIR} or install as root.
+You will need to have write permission in `${INSTALLDIR}` or install as root.
 
 
 Authors
 -------
 
-Hans F. Schwaiger <hschwaiger@usgs.gov>
-Larry G. Mastin <lgmastin@usgs.gov>
+Hans F. Schwaiger <hschwaiger@usgs.gov>  
+Larry G. Mastin <lgmastin@usgs.gov>  
 Roger P. Denlinger <rdenlinger@usgs.gov>
