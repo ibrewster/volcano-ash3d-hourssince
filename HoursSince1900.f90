@@ -32,7 +32,6 @@
 
       program hours_since_1900
 
-
 !     input iyear,imonth,iday,hours
       
 !     function that calculates the number of hours since 1900 of a year, month, day, and hour (UT)      
