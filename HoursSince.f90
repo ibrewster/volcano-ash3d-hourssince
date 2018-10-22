@@ -107,15 +107,22 @@
 
       ! First check input values
       if (iyear.lt.byear) then
+        write(0,*)"HS ERROR: HS_hours_since_baseyear"
         write(0,*)"HS ERROR:  year must be greater or equal to base year."
+        write(0,*)"      Base Year = ",byear
+        write(0,*)"     Input Year = ",iyear
         stop 1
       endif
       if (imonth.lt.1.or.imonth.gt.12) then
+        write(0,*)"HS ERROR: HS_hours_since_baseyear"
         write(0,*)"HS ERROR:  month must be between 1 and 12."
+        write(0,*)"     Input Month = ",imonth
         stop 1
       endif
       if (iday.lt.1) then
+        write(0,*)"HS ERROR: HS_hours_since_baseyear"
         write(0,*)"HS ERROR:  day must be greater than 0."
+        write(0,*)"     Input Day = ",iday
         stop 1
       endif
       if ((imonth.eq.1.or.&
@@ -125,18 +132,27 @@
            imonth.eq.8.or.&
            imonth.eq.10.or.&
            imonth.eq.12).and.iday.gt.31)then
+        write(0,*)"HS ERROR: HS_hours_since_baseyear"
         write(0,*)"HS ERROR:  day must be <= 31 for this month."
+        write(0,*)"     Input Month = ",imonth
+        write(0,*)"     Input Day = ",iday
         stop 1
       endif
       if ((imonth.eq.4.or.&
            imonth.eq.6.or.&
            imonth.eq.9.or.&
            imonth.eq.11).and.iday.gt.30)then
+        write(0,*)"HS ERROR: HS_hours_since_baseyear"
         write(0,*)"HS ERROR:  day must be <= 30 for this month."
+        write(0,*)"     Input Month = ",imonth
+        write(0,*)"     Input Day = ",iday 
         stop 1
       endif
       if ((imonth.eq.2).and.iday.gt.29)then
+        write(0,*)"HS ERROR: HS_hours_since_baseyear"
         write(0,*)"HS ERROR:  day must be <= 29 for this month."
+        write(0,*)"     Input Month = ",imonth
+        write(0,*)"     Input Day = ",iday
         stop 1
       endif
 
