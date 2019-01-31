@@ -67,7 +67,7 @@
       ihour = int(hour)
       fraction = hour-real(ihour,kind=8)
       if(fraction.gt.1.0_8)then
-        ! if the nearest integer of ifraction is acutually the next
+        ! if the nearest integer of ifraction is actually the next
         ! hour, adjust ifraction and ihour accordingly
         ihour = ihour + int(fraction)
         fraction = fraction-int(fraction)
