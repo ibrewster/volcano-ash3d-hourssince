@@ -228,7 +228,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -391,7 +391,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -441,7 +441,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -490,7 +490,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -505,7 +505,7 @@
       ihours = int(hours)
       ifraction = nint(100.0_8*(hours-real(ihours,kind=8)))
       if(ifraction.eq.100)then
-        ! if the nearest integer of ifraction is acutually the next
+        ! if the nearest integer of ifraction is actually the next
         ! hour, adjust ifraction and ihour accordingly
         ifraction = 0
         ihours = ihours + 1
@@ -545,7 +545,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -584,7 +584,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -623,7 +623,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -662,7 +662,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
@@ -701,7 +701,7 @@
 
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
-      !        nonesense
+      !        nonsense
       if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
