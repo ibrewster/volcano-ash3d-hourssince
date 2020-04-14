@@ -78,13 +78,17 @@ endif
 endif
 ###############################################################################
 
+LIB = libhourssince.a
 
 EXEC = \
  HoursSince1900 \
  yyyymmddhh_since_1900
 
+###############################################################################
+# TARGETS
+###############################################################################
 
-lib: libhourssince.a
+lib: $(LIB)
 
 tools: $(EXEC)
 
@@ -104,7 +108,6 @@ yyyymmddhh_since_1900: yyyymmddhh_since_1900.f90 HoursSince.o
 testHours: testHours.f90 HoursSince.o makefile
 	$(FC) $(FFLAGS) $(EXFLAGS) testHours.f90 HoursSince.o -o testHours
 
-
 clean:
 	rm -f *.o
 	rm -f libhourssince.a
@@ -113,7 +116,12 @@ clean:
 install:
 	install -d $(INSTALLDIR)/lib/
 	install -d $(INSTALLDIR)/bin/
-	install -m 644 libhourssince.a $(INSTALLDIR)/lib/
+	install -m 644 $(LIB) $(INSTALLDIR)/lib/
 	install -m 755 $(EXEC) $(INSTALLDIR)/bin/
+
+uninstall:
+	rm -f $(INSTALLDIR)/lib/$(LIB)
+	rm -f $(INSTALLDIR)/bin/HoursSince1900
+	rm -f $(INSTALLDIR)/bin/yyyymmddhh_since_1900
 
 
