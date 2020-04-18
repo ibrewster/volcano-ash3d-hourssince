@@ -40,10 +40,12 @@
 
       implicit none
 
-      integer              :: iyear,imonth
+      integer              :: iyear
+      integer              :: imonth
       integer              :: iday
       integer              :: nargs
-      character(len=80)    :: garbage1, garbage2, garbage3, garbage4
+      character(len=80)    :: arg1, arg2, arg3, arg4
+      integer              :: status
       real(kind=8)         :: hours
       real(kind=8)         :: hours_out
       real(kind=8)         :: HS_hours_since_baseyear     ! function that calculates hours
@@ -52,21 +54,21 @@
       logical :: useLeaps = .true.
 
 !     TEST READ COMMAND LINE ARGUMENTS
-      nargs = iargc()
+      nargs = command_argument_count()
       if (nargs.lt.4) then
            write(6,*) 'error in input to HoursSince1900'
            write(6,*) 'input should be year month day hour'
            write(6,*) 'program stopped'
            stop 1
          else
-           call getarg(1,garbage1)
-           call getarg(2,garbage2)
-           call getarg(3,garbage3)
-           call getarg(4,garbage4)
-           read(garbage1,*) iyear
-           read(garbage2,*) imonth
-           read(garbage3,*) iday
-           read(garbage4,*) hours
+           call get_command_argument(1, arg1, status)
+           call get_command_argument(2, arg2, status)
+           call get_command_argument(3, arg3, status)
+           call get_command_argument(4, arg4, status)
+           read(arg1,*) iyear
+           read(arg2,*) imonth
+           read(arg3,*) iday
+           read(arg4,*) hours
       end if
 
       hours_out = HS_hours_since_baseyear(iyear,imonth,iday,hours,byear,useLeaps)

@@ -42,6 +42,7 @@
 
       character (len=18)   ::  string1
       character (len=80)   ::  linebuffer
+      integer              ::  status
       real(kind=8)         ::  HoursSince1900
       integer              ::  iyear, imonth, iday, ihour, ifraction, idoy
       real(kind=8)         ::  fraction, hour
@@ -50,15 +51,28 @@
       integer :: byear    = 1900
       logical :: useLeaps = .true.
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       !TEST READ COMMAND LINE ARGUMENTS
-      nargs = iargc()
+      nargs = command_argument_count()
       if (nargs.ne.1) then
         write(6,*) 'error in input to yyyymmddhh_since_1900'
         write(6,*) 'input should be a single real number.'
         write(6,*) 'program stopped'
         stop
       else
-        call getarg(1,linebuffer)
+        call get_command_argument(1, linebuffer, status)
         read(linebuffer,*) HoursSince1900
       endif
 
