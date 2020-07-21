@@ -41,7 +41,6 @@ SYSTEM = gfortran
 RUN = OPT
 #
 INSTALLDIR=/opt/USGS
-#INSTALLDIR=~/gcc
 
 ###############################################################################
 #####  END OF USER SPECIFIED FLAGS  ###########################################
@@ -64,7 +63,7 @@ ifeq ($(SYSTEM), gfortran)
 
 # Debugging flags
 ifeq ($(RUN), DEBUG)
-    FFLAGS =  -O0 -g3 -Wall -fbounds-check -pedantic -fimplicit-none -Wunderflow -Wuninitialized -ffpe-trap=invalid,zero,overflow -fdefault-real-8 
+    FFLAGS =  -O0 -g3 -Wall -fbounds-check -pedantic -fimplicit-none -Wunderflow -Wuninitialized -ffpe-trap=invalid,zero,overflow -fdefault-real-8
 endif
 # Profiling flags
 ifeq ($(RUN), PROF)
@@ -78,13 +77,17 @@ endif
 endif
 ###############################################################################
 
+LIB = libhourssince.a
 
 EXEC = \
  HoursSince1900 \
  yyyymmddhh_since_1900
 
+###############################################################################
+# TARGETS
+###############################################################################
 
-lib: libhourssince.a
+lib: $(LIB)
 
 tools: $(EXEC)
 
@@ -92,28 +95,31 @@ test: testHours
 
 all: libhourssince.a $(EXEC) makefile testHours
 
-
 libhourssince.a: HoursSince.f90 HoursSince.o makefile
 	ar rcs libhourssince.a HoursSince.o
 HoursSince.o: HoursSince.f90 makefile
-	$(FC) $(FFLAGS) $(EXFLAGS) -c HoursSince.f90
+	$(FC) $(FFLAGS) $(EXFLAGS) $(LIBS) -c HoursSince.f90
 HoursSince1900: HoursSince1900.f90 HoursSince.o
-	$(FC) $(FFLAGS) $(EXFLAGS) HoursSince1900.f90 HoursSince.o -o HoursSince1900
+	$(FC) $(FFLAGS) $(EXFLAGS) $(LIBS) HoursSince1900.f90 HoursSince.o -o HoursSince1900
 yyyymmddhh_since_1900: yyyymmddhh_since_1900.f90 HoursSince.o
-	$(FC) $(FFLAGS) $(EXFLAGS) yyyymmddhh_since_1900.f90 HoursSince.o -o yyyymmddhh_since_1900
+	$(FC) $(FFLAGS) $(EXFLAGS) $(LIBS) yyyymmddhh_since_1900.f90 HoursSince.o -o yyyymmddhh_since_1900
 testHours: testHours.f90 HoursSince.o makefile
-	$(FC) $(FFLAGS) $(EXFLAGS) testHours.f90 HoursSince.o -o testHours
-
+	$(FC) $(FFLAGS) $(EXFLAGS) $(LIBS) testHours.f90 HoursSince.o -o testHours
 
 clean:
-	rm -f *.o
+	rm -f *.o *__genmod.f90 *__genmod.mod
 	rm -f libhourssince.a
 	rm -f $(EXEC) testHours
 
 install:
 	install -d $(INSTALLDIR)/lib/
 	install -d $(INSTALLDIR)/bin/
-	install -m 644 libhourssince.a $(INSTALLDIR)/lib/
+	install -m 644 $(LIB) $(INSTALLDIR)/lib/
 	install -m 755 $(EXEC) $(INSTALLDIR)/bin/
+
+uninstall:
+	rm -f $(INSTALLDIR)/lib/$(LIB)
+	rm -f $(INSTALLDIR)/bin/HoursSince1900
+	rm -f $(INSTALLDIR)/bin/yyyymmddhh_since_1900
 
 

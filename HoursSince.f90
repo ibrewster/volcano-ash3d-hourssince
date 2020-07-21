@@ -229,7 +229,7 @@
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -389,10 +389,23 @@
       real(kind=8)              :: hours
       integer                   :: ihours, iminutes, iseconds
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -439,10 +452,23 @@
 
       integer                    ::  ihours, iminutes
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -488,10 +514,23 @@
       character (len=1)          ::  string0              ! a filler character
       integer                    ::  ihours, ifraction
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -543,10 +582,23 @@
       integer               ::  iyear, imonth, iday, idoy
       real(kind=8)          ::  hours
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -582,10 +634,23 @@
       integer               ::  iyear, imonth, iday, idoy
       real(kind=8)          ::  hours
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -621,10 +686,23 @@
       integer               ::  iyear, imonth, iday, idoy
       real(kind=8)          ::  hours
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -660,10 +738,23 @@
       integer               ::  iyear, imonth, iday, idoy
       real(kind=8)          ::  hours
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
@@ -699,10 +790,23 @@
       integer               ::  iyear, imonth, iday, idoy
       real(kind=8)          ::  hours
 
+      INTERFACE
+        subroutine HS_Get_YMDH(HoursSince,byear,useLeaps,iyear,imonth,iday,hours,idoy)
+          real(kind=8),intent(in)       :: HoursSince
+          integer     ,intent(in)       :: byear
+          logical     ,intent(in)       :: useLeaps
+          integer     ,intent(out)      :: iyear
+          integer     ,intent(out)      :: imonth
+          integer     ,intent(out)      :: iday
+          real(kind=8),intent(out)      :: hours
+          integer     ,intent(out)      :: idoy
+        end subroutine
+      END INTERFACE
+
       ! Error checking the first argument
       ! Note: this must be real*8; if it was passed as real*4, then it will be
       !        nonsense
-      if(HoursSince.lt.0.or.HoursSince.gt.1.0e9_8)then
+      if(HoursSince.lt.0.0_8.or.HoursSince.gt.1.0e9_8)then
         write(0,*)"HS ERROR: HoursSince variable is either negative or larger"
         write(0,*)"          than ~100,000 years."
         write(0,*)"          Double-check that it was passed as real*8"
