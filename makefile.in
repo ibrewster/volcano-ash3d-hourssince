@@ -40,7 +40,7 @@ SYSTEM = gfortran
 #RUN = PROF
 RUN = OPT
 #
-INSTALLDIR=/opt/USGS
+INSTALLDIR=@prefix@
 
 ###############################################################################
 #####  END OF USER SPECIFIED FLAGS  ###########################################
@@ -55,9 +55,9 @@ INSTALLDIR=/opt/USGS
 ##########  GNU Fortran Compiler  #############################################
 ifeq ($(SYSTEM), gfortran)
     FCHOME=/usr
-    FC = /usr/bin/gfortran
-    COMPINC = -I$(FCHOME)/include -I$(FCHOME)/lib64/gfortran/modules
-    COMPLIBS = -L$(FCHOME)/lib64
+    FC = @GFORTRAN_DIR@
+    COMPINC = -I$(FCHOME)/include -I$(FCHOME)/lib64/gfortran/modules -I$(INSTALLDIR)/include @OTHERINC@
+    COMPLIBS = -L$(FCHOME)/lib64 -L${INSTALLDIR}/lib @OTHERLIBS@
 
     LIBS = $(COMPLIBS) $(COMPINC)
 
